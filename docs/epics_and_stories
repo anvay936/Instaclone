@@ -1,0 +1,788 @@
+PHASE 1 — Strong Backend Foundations
+EPIC 1 — Core Backend Foundation
+•	clean architecture
+•	REST APIs
+•	DTOs
+•	validation
+•	exception handling
+EPIC 2 — Database & Persistence
+•	PostgreSQL
+•	JPA
+•	indexing
+•	pagination
+•	query optimization
+EPIC 3 — Authentication & Security
+•	JWT
+•	refresh tokens
+•	OAuth
+•	RBAC
+•	rate limiting
+________________________________________
+PHASE 2 — Core Social Platform
+EPIC 4 — User System
+•	profiles
+•	followers
+•	blocks
+•	privacy
+EPIC 5 — Post System
+•	media uploads
+•	captions
+•	hashtags
+•	comments
+•	likes
+EPIC 6 — Feed System
+•	home feed
+•	fanout
+•	caching
+•	ranking basics
+________________________________________
+PHASE 3 — Distributed Systems
+EPIC 7 — Async Event System
+•	Kafka
+•	producers/consumers
+•	event-driven architecture
+EPIC 8 — Notification System
+•	async notifications
+•	retries
+•	dead letter queues
+EPIC 9 — Media Processing Pipeline
+•	chunk uploads
+•	transcoding
+•	thumbnails
+•	async workers
+________________________________________
+PHASE 4 — Realtime Systems
+EPIC 10 — Messaging System
+•	WebSockets
+•	chat
+•	presence
+•	read receipts
+EPIC 11 — Live Notifications
+•	realtime pushes
+•	websocket scaling
+________________________________________
+PHASE 5 — Scalability Engineering
+EPIC 12 — Caching System
+•	Redis
+•	cache invalidation
+•	feed cache
+EPIC 13 — Search System
+•	OpenSearch
+•	indexing
+•	autocomplete
+EPIC 14 — Recommendation System
+•	explore feed
+•	ranking
+•	engagement scoring
+________________________________________
+PHASE 6 — Infrastructure & Reliability
+EPIC 15 — Docker & Deployment
+•	Docker
+•	docker-compose
+•	CI/CD
+EPIC 16 — Kubernetes
+•	deployments
+•	autoscaling
+•	ingress
+EPIC 17 — Observability
+•	Prometheus
+•	Grafana
+•	tracing
+•	dashboards
+EPIC 18 — Reliability Engineering
+•	retries
+•	circuit breakers
+•	graceful degradation
+•	chaos testing
+________________________________________
+PHASE 7 — Elite Distributed Systems
+EPIC 19 — Scaling Database
+•	replication
+•	partitioning
+•	sharding
+EPIC 20 — Multi-Region Concepts
+•	CDN
+•	geo routing
+•	consistency tradeoffs
+EPIC 21 — Advanced Feed Architecture
+•	fanout-on-write
+•	celebrity handling
+•	hybrid feed generation
+________________________________________
+Most Important Advice ⚠️
+Do NOT try to fully plan 200 stories immediately.
+Do this instead:
+1.	Define all epics
+2.	Fully detail ONLY next 1–2 epics
+3.	Build
+4.	Learn
+5.	Refactor roadmap
+This mirrors real engineering teams.
+Because once you actually build:
+•	architecture changes
+•	priorities change
+•	pain points appear
+•	better ideas emerge
+That evolution is part of becoming strong.
+
+🔵 EPIC 1 — Core Backend Foundation
+🎯 Epic Goal
+Build a clean, production-style backend foundation for InstaClone.
+This epic focuses on:
+•	backend architecture
+•	API design
+•	validation
+•	exception handling
+•	clean code structure
+•	scalability preparation
+By the end of this epic, the project should feel like a real backend system instead of a tutorial app.
+________________________________________
+🧾 STORY 1 — Setup Clean Architecture
+🎯 Goal
+Create scalable backend structure before feature development.
+________________________________________
+🧠 Engineering Concepts
+•	layered architecture
+•	separation of concerns
+•	modular monolith
+•	maintainability
+________________________________________
+🔹 Tasks
+1. Create root package structure
+com.instaclone
+  ├── auth
+  ├── users
+  ├── posts
+  ├── feed
+  ├── common
+________________________________________
+2. Inside each module create:
+controller
+service
+repository
+dto
+entity
+________________________________________
+3. Create common shared packages
+common
+  ├── exception
+  ├── config
+  ├── util
+  ├── constants
+________________________________________
+4. Rename starter controller properly
+Example:
+•	HelloController → PostController
+________________________________________
+5. Ensure project compiles cleanly
+________________________________________
+✅ Acceptance Criteria
+•	clean package structure exists
+•	project compiles
+•	modules separated properly
+•	APIs still run
+________________________________________
+📈 Scaling Notes
+This structure prepares for:
+•	service extraction later
+•	modular scaling
+•	cleaner ownership boundaries
+________________________________________
+🧾 STORY 2 — Create Post Entity & Basic APIs
+🎯 Goal
+Build first real backend feature.
+________________________________________
+🧠 Engineering Concepts
+•	REST API basics
+•	entity modeling
+•	CRUD fundamentals
+________________________________________
+🔹 Tasks
+1. Create Post entity
+Fields:
+id
+content
+createdAt
+updatedAt
+________________________________________
+2. Create PostController
+Endpoints:
+POST /posts
+GET /posts
+________________________________________
+3. Create PostService
+Methods:
+•	createPost()
+•	getAllPosts()
+________________________________________
+4. Use in-memory list temporarily
+________________________________________
+5. Return proper JSON responses
+No string responses.
+________________________________________
+✅ Acceptance Criteria
+•	post creation works
+•	get posts works
+•	JSON returned properly
+•	timestamps visible
+________________________________________
+📈 Scaling Notes
+This is temporary storage only.
+Later:
+•	List → PostgreSQL
+without changing API contract.
+________________________________________
+🧾 STORY 3 — Add DTO Layer
+🎯 Goal
+Separate API contract from internal entity.
+________________________________________
+🧠 Engineering Concepts
+•	API abstraction
+•	encapsulation
+•	contract stability
+________________________________________
+🔹 Tasks
+1. Create DTOs
+PostRequest
+PostResponse
+________________________________________
+2. Controller should use DTOs only
+No direct entity exposure.
+________________________________________
+3. Add mapping logic
+Manual mapping for now.
+________________________________________
+✅ Acceptance Criteria
+•	entities hidden from API layer
+•	DTOs returned correctly
+•	API contract clean
+________________________________________
+📈 Scaling Notes
+DTOs prevent future breaking API changes.
+Critical for large systems.
+________________________________________
+🧾 STORY 4 — Input Validation
+🎯 Goal
+Reject invalid client requests.
+________________________________________
+🧠 Engineering Concepts
+•	defensive programming
+•	API safety
+•	validation layers
+________________________________________
+🔹 Tasks
+1. Add validation dependency
+Spring Validation.
+________________________________________
+2. Validate PostRequest
+Rules:
+•	content not null
+•	content not blank
+•	max length limit
+________________________________________
+3. Use @Valid in controller
+________________________________________
+✅ Acceptance Criteria
+•	invalid requests fail
+•	proper 400 response returned
+•	empty posts rejected
+________________________________________
+📈 Scaling Notes
+Validation protects:
+•	DB integrity
+•	downstream systems
+•	async pipelines later
+________________________________________
+🧾 STORY 5 — Global Exception Handling
+🎯 Goal
+Return clean structured errors.
+________________________________________
+🧠 Engineering Concepts
+•	centralized error handling
+•	API consistency
+•	production-grade responses
+________________________________________
+🔹 Tasks
+1. Create:
+GlobalExceptionHandler
+________________________________________
+2. Handle:
+•	validation errors
+•	generic exceptions
+•	resource not found
+________________________________________
+3. Create standard error response
+Example:
+{
+  "timestamp": "...",
+  "status": 400,
+  "error": "Validation Failed",
+  "message": "Content cannot be blank"
+}
+________________________________________
+✅ Acceptance Criteria
+•	no raw Spring errors
+•	consistent error format
+•	proper status codes
+________________________________________
+📈 Scaling Notes
+Centralized error handling becomes critical once:
+•	multiple services
+•	async systems
+•	external clients
+are introduced.
+________________________________________
+🧾 STORY 6 — Add Repository Layer
+🎯 Goal
+Separate storage logic from business logic.
+________________________________________
+🧠 Engineering Concepts
+•	repository pattern
+•	persistence abstraction
+•	clean architecture
+________________________________________
+🔹 Tasks
+1. Create:
+PostRepository
+________________________________________
+2. Move storage logic
+Move:
+List<Post>
+from service → repository.
+________________________________________
+3. Add repository methods
+Methods:
+•	save()
+•	findAll()
+•	findById()
+•	delete()
+________________________________________
+4. Service should use repository only
+________________________________________
+✅ Acceptance Criteria
+•	service has no storage logic
+•	repository handles all persistence
+•	APIs still work
+________________________________________
+📈 Scaling Notes
+This allows migration:
+•	in-memory → DB
+•	DB → distributed DB
+without rewriting business logic.
+________________________________________
+🧾 STORY 7 — Update & Delete APIs
+🎯 Goal
+Support full CRUD operations.
+________________________________________
+🧠 Engineering Concepts
+•	REST semantics
+•	resource lifecycle
+•	error handling
+________________________________________
+🔹 Tasks
+1. Add Update API
+PUT /posts/{id}
+________________________________________
+2. Add Delete API
+DELETE /posts/{id}
+________________________________________
+3. Handle missing resources
+Return 404 properly.
+________________________________________
+✅ Acceptance Criteria
+•	update works
+•	delete works
+•	invalid IDs handled properly
+________________________________________
+📈 Scaling Notes
+CRUD completeness is baseline for:
+•	testing
+•	persistence
+•	async events later
+________________________________________
+🧾 STORY 8 — Add Search & Pagination
+🎯 Goal
+Support scalable querying.
+________________________________________
+🧠 Engineering Concepts
+•	pagination
+•	filtering
+•	query design
+________________________________________
+🔹 Tasks
+1. Add query params
+GET /posts?keyword=sunset
+________________________________________
+2. Add pagination
+limit
+offset
+________________________________________
+3. Filter by content
+Simple contains() search for now.
+________________________________________
+✅ Acceptance Criteria
+•	keyword search works
+•	pagination works
+•	empty results handled properly
+________________________________________
+📈 Scaling Notes
+Pagination is mandatory for:
+•	large datasets
+•	feed systems
+•	scalable APIs
+________________________________________
+🧾 STORY 9 — Add Tags & Metadata
+🎯 Goal
+Improve post structure for future feed/search systems.
+________________________________________
+🧠 Engineering Concepts
+•	structured metadata
+•	categorization
+•	indexing preparation
+________________________________________
+🔹 Tasks
+1. Add fields
+tags
+eventTime
+________________________________________
+2. Support tag filtering
+GET /posts?tag=travel
+________________________________________
+3. Sort by eventTime
+Descending order.
+________________________________________
+✅ Acceptance Criteria
+•	tags stored properly
+•	filtering works
+•	sorting works
+________________________________________
+📈 Scaling Notes
+This prepares:
+•	feeds
+•	recommendations
+•	search indexing
+later.
+________________________________________
+🧾 STORY 10 — Timeline API
+🎯 Goal
+Build first version of feed/timeline system.
+________________________________________
+🧠 Engineering Concepts
+•	timeline systems
+•	ordering
+•	feed foundations
+________________________________________
+🔹 Tasks
+1. Create endpoint
+GET /timeline
+________________________________________
+2. Return ordered posts
+Sort by:
+eventTime DESC
+________________________________________
+3. Add filtering
+Support:
+•	tag
+•	date range
+________________________________________
+4. Add grouping
+Basic:
+•	daily grouping
+•	monthly grouping
+________________________________________
+✅ Acceptance Criteria
+•	timeline works
+•	ordering correct
+•	filters work
+________________________________________
+📈 Scaling Notes
+This is the first step toward:
+•	feed generation
+•	recommendation systems
+•	fanout architecture
+________________________________________
+🧠 EPIC 1 Final Outcome
+After EPIC 1 you will have:
+✅ clean architecture
+✅ layered backend
+✅ DTOs
+✅ validation
+✅ exception handling
+✅ repository pattern
+✅ CRUD APIs
+✅ filtering/pagination
+✅ timeline foundation
+This is already far beyond tutorial-level backend engineering.
+________________________________________
+🔵 EPIC 2 — Database & Persistence Layer
+🎯 Epic Goal
+Replace temporary in-memory storage with a real production-style database system.
+This epic transforms the project from:
+“backend demo”
+into:
+“actual scalable backend foundation.”
+________________________________________
+🧾 STORY 11 — Setup PostgreSQL Integration
+🎯 Goal
+Connect backend to real database.
+________________________________________
+🧠 Engineering Concepts
+•	database connectivity
+•	ORM basics
+•	persistence setup
+________________________________________
+🔹 Tasks
+1. Add dependencies
+•	Spring Data JPA
+•	PostgreSQL driver
+________________________________________
+2. Configure application.properties
+Add:
+•	DB URL
+•	username/password
+•	JPA configs
+________________________________________
+3. Verify DB connection
+Ensure app starts properly.
+________________________________________
+✅ Acceptance Criteria
+•	app connects to PostgreSQL
+•	tables can be created
+•	no startup failures
+________________________________________
+📈 Scaling Notes
+PostgreSQL gives:
+•	transactional guarantees
+•	indexing
+•	query optimization
+•	replication later
+________________________________________
+🧾 STORY 12 — Convert Post to JPA Entity
+🎯 Goal
+Persist posts in database.
+________________________________________
+🧠 Engineering Concepts
+•	ORM mapping
+•	relational persistence
+•	entity lifecycle
+________________________________________
+🔹 Tasks
+1. Add JPA annotations
+@Entity
+@Table
+@Id
+@GeneratedValue
+________________________________________
+2. Map all fields properly
+Fields:
+•	content
+•	timestamps
+•	tags
+•	eventTime
+________________________________________
+3. Verify table generation
+________________________________________
+✅ Acceptance Criteria
+•	tables auto-created
+•	data persists
+•	IDs generated automatically
+________________________________________
+📈 Scaling Notes
+Proper entity modeling becomes critical later for:
+•	indexing
+•	joins
+•	performance optimization
+________________________________________
+🧾 STORY 13 — Replace In-Memory Repository
+🎯 Goal
+Use JPA repository instead of manual storage.
+________________________________________
+🧠 Engineering Concepts
+•	persistence abstraction
+•	ORM repositories
+•	production persistence
+________________________________________
+🔹 Tasks
+1. Create:
+PostRepository extends JpaRepository
+________________________________________
+2. Remove in-memory list
+________________________________________
+3. Update service layer
+Use:
+•	save()
+•	findAll()
+•	findById()
+•	deleteById()
+________________________________________
+✅ Acceptance Criteria
+•	CRUD works fully with DB
+•	data survives restart
+•	repository layer simplified
+________________________________________
+📈 Scaling Notes
+Spring Data accelerates development while preserving scalability.
+________________________________________
+🧾 STORY 14 — Add Pagination & Sorting
+🎯 Goal
+Make APIs scalable for large datasets.
+________________________________________
+🧠 Engineering Concepts
+•	pageable APIs
+•	query efficiency
+•	scalable reads
+________________________________________
+🔹 Tasks
+1. Use Pageable
+________________________________________
+2. Add API support
+?page=0&size=10
+________________________________________
+3. Add sorting support
+sort=eventTime,desc
+________________________________________
+4. Return pagination metadata
+•	totalPages
+•	totalElements
+•	currentPage
+________________________________________
+✅ Acceptance Criteria
+•	pagination works correctly
+•	sorting works dynamically
+•	metadata returned
+________________________________________
+📈 Scaling Notes
+Pagination is one of the most important scalability concepts in backend systems.
+________________________________________
+🧾 STORY 15 — Add Query Methods & Filtering
+🎯 Goal
+Support structured DB querying.
+________________________________________
+🧠 Engineering Concepts
+•	derived queries
+•	indexed lookups
+•	filtering
+________________________________________
+🔹 Tasks
+1. Add repository methods
+findByContentContaining
+findByTagsContaining
+findByEventTimeBetween
+________________________________________
+2. Add combined filters
+Support:
+•	keyword
+•	tag
+•	date range
+________________________________________
+3. Update APIs
+________________________________________
+✅ Acceptance Criteria
+•	DB-backed filtering works
+•	combined queries work
+•	results accurate
+________________________________________
+📈 Scaling Notes
+This is foundation for:
+•	search systems
+•	recommendation engines
+•	feed ranking
+later.
+________________________________________
+🧾 STORY 16 — Database Indexing
+🎯 Goal
+Improve query performance.
+________________________________________
+🧠 Engineering Concepts
+•	indexes
+•	query optimization
+•	DB performance
+________________________________________
+🔹 Tasks
+1. Add indexes
+Fields:
+•	eventTime
+•	createdAt
+•	tags
+________________________________________
+2. Measure query performance
+Compare:
+•	indexed vs non-indexed
+________________________________________
+3. Document findings
+________________________________________
+✅ Acceptance Criteria
+•	indexes created
+•	queries faster
+•	measurements documented
+________________________________________
+📈 Scaling Notes
+Indexing becomes one of the biggest backend scaling levers at large scale.
+________________________________________
+🧾 STORY 17 — Database Migration System
+🎯 Goal
+Introduce schema version control.
+________________________________________
+🧠 Engineering Concepts
+•	DB migrations
+•	schema evolution
+•	production deployments
+________________________________________
+🔹 Tasks
+1. Add Flyway
+________________________________________
+2. Create initial migration
+V1__create_posts_table.sql
+________________________________________
+3. Move schema creation into migrations
+________________________________________
+✅ Acceptance Criteria
+•	migrations run automatically
+•	schema version tracked
+•	app starts cleanly
+________________________________________
+📈 Scaling Notes
+Migrations are mandatory for real production systems and team development.
+________________________________________
+🧾 STORY 18 — Seed Development Data
+🎯 Goal
+Improve local development/testing experience.
+________________________________________
+🧠 Engineering Concepts
+•	local development tooling
+•	test datasets
+•	reproducibility
+________________________________________
+🔹 Tasks
+1. Add CommandLineRunner
+________________________________________
+2. Insert sample posts
+Generate:
+•	users
+•	posts
+•	tags
+________________________________________
+3. Add environment-specific seeding
+Only for dev profile.
+________________________________________
+✅ Acceptance Criteria
+•	local DB seeded automatically
+•	APIs easily testable
+•	prod profile unaffected
+________________________________________
+📈 Scaling Notes
+Good developer experience becomes critical in larger systems/teams.
+________________________________________
+🧠 EPIC 2 Final Outcome
+After EPIC 2 you will have:
+✅ real PostgreSQL integration
+✅ persistent storage
+✅ JPA repositories
+✅ scalable pagination
+✅ indexed queries
+✅ migrations
+✅ structured querying
+✅ production-style DB architecture
+At this point the project officially becomes:
+a serious backend system.
+

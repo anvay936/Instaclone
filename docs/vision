@@ -1,0 +1,369 @@
+Vision 🎯
+Build a production-grade social platform inspired by Instagram, but engineered as if it must survive:
+•	100M+ users
+•	Viral traffic spikes
+•	Global scale
+•	Real-time interaction
+•	Heavy media workloads
+•	Recommendation systems
+•	Distributed failures
+•	Abuse/spam attacks
+•	Multi-region deployment
+•	Cost constraints
+•	Compliance/security requirements
+The goal is not cloning UI.
+The goal is becoming the kind of engineer who can design systems at:
+•	Rubrik
+•	Stripe
+•	Google
+•	Meta
+•	Datadog
+•	Cloudflare
+•	Uber
+This project becomes your:
+•	distributed systems lab
+•	backend engineering lab
+•	performance engineering lab
+•	reliability engineering lab
+•	product engineering lab
+________________________________________
+Core Philosophy
+Most “Instagram clones” are:
+•	CRUD apps
+•	simple REST APIs
+•	tiny databases
+•	no scale
+•	no observability
+•	no infra complexity
+This one should instead force you to learn:
+Area	Depth
+Backend Engineering	Advanced
+Distributed Systems	Advanced
+Databases	Advanced
+Networking	Strong
+Caching	Strong
+Queues/Streaming	Strong
+Observability	Production-level
+CI/CD	Production-level
+Cloud Infra	Strong
+Security	Strong
+Performance	Advanced
+Recommendation Systems	Moderate-Advanced
+Search Systems	Moderate
+Storage Systems	Advanced
+API Design	Advanced
+Reliability Engineering	Advanced
+Kubernetes	Strong
+System Design	Elite
+Load Testing	Elite
+Incident Handling	Strong
+________________________________________
+End-State Product Requirements 📦
+________________________________________
+1. Core Social Platform
+Users
+•	signup/login
+•	OAuth
+•	MFA
+•	device management
+•	sessions
+•	account recovery
+•	profile system
+•	creator/business accounts
+Social Graph
+•	follow/unfollow
+•	private/public accounts
+•	blocks/restricts
+•	close friends
+•	mute
+•	relationship graph
+This teaches:
+•	graph modeling
+•	fanout systems
+•	edge storage
+•	caching
+________________________________________
+2. Media Platform 🎥
+This is where complexity explodes.
+Uploads
+•	images
+•	videos
+•	reels
+•	stories
+•	live streams
+Media Pipeline
+•	chunked uploads
+•	resumable uploads
+•	compression
+•	transcoding
+•	thumbnails
+•	adaptive bitrate streaming
+•	CDN delivery
+•	background processing
+Storage
+•	object storage abstraction
+•	media metadata service
+•	lifecycle policies
+•	cold storage
+This alone teaches:
+•	async architectures
+•	distributed processing
+•	queues
+•	large-scale storage
+•	bandwidth optimization
+________________________________________
+3. Feed System 🔥
+The feed is the heart of elite distributed systems learning.
+Feed Requirements
+•	home feed
+•	following feed
+•	explore feed
+•	reels feed
+•	trending feed
+Ranking
+•	freshness
+•	engagement prediction
+•	affinity scoring
+•	ML ranking later
+Architectures
+You should implement:
+•	fanout-on-write
+•	fanout-on-read
+•	hybrid models
+This teaches:
+•	scale tradeoffs
+•	cache invalidation
+•	ranking systems
+•	read/write amplification
+________________________________________
+4. Real-Time Systems ⚡
+Features
+•	messaging
+•	typing indicators
+•	read receipts
+•	online presence
+•	notifications
+•	live comments
+•	live streaming chat
+Tech Concepts
+•	WebSockets
+•	pub/sub
+•	event streaming
+•	distributed presence
+•	sticky sessions
+________________________________________
+5. Notification Platform 🔔
+Build a dedicated notification system.
+Types
+•	push
+•	in-app
+•	email
+•	SMS
+Requirements
+•	batching
+•	prioritization
+•	retries
+•	deduplication
+•	user preferences
+•	rate limiting
+This becomes a mini-Kafka style event system exercise.
+________________________________________
+6. Search System 🔎
+Search Types
+•	users
+•	hashtags
+•	captions
+•	comments
+•	audio
+•	trends
+Features
+•	autocomplete
+•	typo tolerance
+•	ranking
+•	indexing pipeline
+Teaches:
+•	inverted indexes
+•	distributed search
+•	eventual consistency
+________________________________________
+7. Recommendation Engine 🧠
+Recommendations
+•	who to follow
+•	reels
+•	explore
+•	similar content
+•	trending
+Later Additions
+•	embeddings
+•	vector search
+•	ANN indexes
+•	feature stores
+This becomes entry-level recommender systems engineering.
+________________________________________
+8. Analytics + Observability 📊
+Critical for top-tier backend engineering.
+Metrics
+•	request latency
+•	p95/p99
+•	error rates
+•	queue lag
+•	DB latency
+•	cache hit rate
+Systems
+•	centralized logging
+•	tracing
+•	metrics
+•	dashboards
+•	alerting
+Tools:
+•	Prometheus
+•	Grafana Labs
+•	Jaeger
+________________________________________
+9. Reliability Engineering 🛡️
+This separates average engineers from elite ones.
+Requirements
+•	graceful degradation
+•	retries
+•	circuit breakers
+•	rate limiting
+•	backpressure
+•	idempotency
+•	chaos testing
+•	disaster recovery
+•	backups
+•	failover
+________________________________________
+10. Security Engineering 🔐
+Features
+•	JWT rotation
+•	RBAC
+•	encryption
+•	secret management
+•	CSRF/XSS protection
+•	DDoS mitigation
+•	bot detection
+•	abuse prevention
+•	content moderation
+________________________________________
+11. Distributed Systems Challenges 🌍
+Eventually support:
+•	multi-region deployment
+•	eventual consistency
+•	replication
+•	partitioning/sharding
+•	distributed locking
+•	leader election
+•	consensus concepts
+•	CAP theorem tradeoffs
+________________________________________
+12. Developer Platform
+Internal Engineering Features
+•	API gateway
+•	service discovery
+•	schema registry
+•	feature flags
+•	config service
+•	internal SDKs
+•	API versioning
+________________________________________
+13. Data Engineering Pipeline
+Event Pipeline
+Every action becomes an event:
+•	likes
+•	follows
+•	watches
+•	clicks
+•	shares
+Then:
+•	stream processing
+•	aggregation
+•	analytics
+•	recommendation training
+________________________________________
+14. AI Features (Optional Advanced Tier)
+Later:
+•	moderation AI
+•	recommendation models
+•	semantic search
+•	AI captions
+•	OCR
+•	speech-to-text
+•	clip embeddings
+________________________________________
+Target Technical Depth 📚
+You should end this project understanding:
+Backend
+•	monolith vs microservices
+•	sync vs async systems
+•	API gateway patterns
+•	service decomposition
+Databases
+•	PostgreSQL internals
+•	indexing
+•	query planning
+•	replication
+•	sharding
+Caching
+•	Redis deeply
+•	cache stampedes
+•	eviction policies
+•	distributed cache consistency
+Messaging
+•	Kafka internals
+•	partitions
+•	consumer groups
+•	ordering guarantees
+Infra
+•	Docker
+•	Kubernetes
+•	Terraform
+•	CI/CD
+•	autoscaling
+Performance
+•	load testing
+•	profiling
+•	flamegraphs
+•	memory leaks
+•	CPU bottlenecks
+________________________________________
+Most Important Rule ⚠️
+Do NOT jump immediately to:
+•	microservices
+•	Kubernetes
+•	50 technologies
+Start with:
+1.	clean monolith
+2.	modular architecture
+3.	excellent engineering
+4.	observability
+5.	testing
+6.	performance
+Then progressively evolve.
+This mirrors real companies.
+________________________________________
+Ideal Final Resume Signal 💼
+A recruiter should think:
+“This person didn’t build a tutorial app.
+They built infrastructure.”
+That is the difference.
+________________________________________
+Final End-State Vision
+Your project should eventually resemble a simplified combination of:
+Company	What You Learn
+Instagram	social product
+YouTube	media pipeline
+TikTok	recommendation/feed
+Discord	realtime infra
+Netflix	video delivery
+Uber	distributed systems
+Stripe	reliability engineering
+Cloudflare	edge/network thinking
+Next step should be:
+1.	define engineering principles
+2.	define scale assumptions
+3.	define architecture evolution roadmap
+4.	define exact tech stack
+5.	define service boundaries
+6.	define milestone roadmap from MVP → elite-scale system
+

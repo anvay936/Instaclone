@@ -1,0 +1,312 @@
+InstaClone — HOW / PLAN Document 🏗️
+________________________________________
+1. Vision
+Build a production-grade social media platform inspired by Instagram and TikTok focused on:
+•	backend engineering
+•	distributed systems
+•	scalability
+•	reliability
+•	real-world architecture
+•	performance engineering
+The goal is not just making a clone.
+The goal is becoming strong enough for companies like:
+•	Rubrik
+•	Stripe
+•	Google
+•	Uber
+________________________________________
+2. Engineering Philosophy
+Start Simple
+Begin with a clean modular monolith.
+Do not start with:
+•	Kubernetes
+•	microservices
+•	distributed databases
+Add complexity only when needed.
+________________________________________
+Learn Internals
+Understand:
+•	why Redis helps
+•	why Kafka exists
+•	why sharding is needed
+•	why caching fails
+Avoid tutorial-style engineering.
+________________________________________
+Build Like Production
+Every feature should consider:
+•	scale
+•	failures
+•	retries
+•	monitoring
+•	security
+•	performance
+________________________________________
+3. Architecture Evolution Plan
+________________________________________
+Phase 1 — Modular Monolith
+Architecture:
+Frontend
+   ↓
+Backend API
+   ↓
+PostgreSQL
+Redis
+Object Storage
+Goal:
+•	learn backend fundamentals
+•	API design
+•	DB design
+•	caching
+•	authentication
+•	media uploads
+________________________________________
+Phase 2 — Scale-Oriented Backend
+Add:
+•	async jobs
+•	Kafka
+•	feed generation
+•	notification pipeline
+•	websocket support
+•	search engine
+Goal:
+•	learn distributed systems basics
+•	queues
+•	eventual consistency
+•	background processing
+________________________________________
+Phase 3 — Service Decomposition
+Split into services:
+•	Auth Service
+•	Feed Service
+•	Media Service
+•	Notification Service
+•	Messaging Service
+Goal:
+•	service communication
+•	scaling independently
+•	observability
+•	reliability engineering
+________________________________________
+Phase 4 — Advanced Distributed Systems
+Add:
+•	Kubernetes
+•	autoscaling
+•	sharding
+•	multi-region concepts
+•	advanced caching
+•	recommendation system
+Goal:
+•	senior/staff-level backend understanding
+________________________________________
+4. Core Features
+________________________________________
+User System
+•	signup/login
+•	JWT auth
+•	OAuth
+•	profiles
+•	follow system
+•	private/public accounts
+________________________________________
+Posts
+•	image/video upload
+•	captions
+•	hashtags
+•	comments
+•	likes
+•	saves
+________________________________________
+Feed
+•	home feed
+•	following feed
+•	explore feed
+•	reels feed
+________________________________________
+Messaging
+•	real-time chat
+•	typing indicators
+•	read receipts
+________________________________________
+Notifications
+•	likes
+•	comments
+•	follows
+•	push-style notifications
+________________________________________
+Search
+•	users
+•	hashtags
+•	posts
+________________________________________
+5. Tech Stack
+Area	Tech
+Backend	Java + Spring Boot
+Database	PostgreSQL
+Cache	Redis
+Queue	Kafka
+Search	OpenSearch
+Storage	S3
+Frontend	React
+Realtime	WebSockets
+Infra	Docker
+Orchestration	Kubernetes later
+Monitoring	Prometheus + Grafana
+________________________________________
+6. Backend Architecture
+Initially:
+Modules:
+- auth
+- users
+- posts
+- feeds
+- media
+- notifications
+- messaging
+Each module should have:
+•	controller
+•	service
+•	repository
+•	models
+•	DTOs
+Clean separation from beginning.
+________________________________________
+7. Database Design Philosophy
+Use PostgreSQL as primary DB.
+Focus on:
+•	normalization initially
+•	indexing properly
+•	pagination
+•	query optimization
+Later learn:
+•	partitioning
+•	replication
+•	sharding
+________________________________________
+8. Caching Strategy
+Use Redis for:
+•	sessions
+•	feed caching
+•	hot posts
+•	rate limiting
+Learn:
+•	cache invalidation
+•	TTLs
+•	cache-aside pattern
+________________________________________
+9. Event-Driven Architecture
+Introduce Kafka later.
+Events:
+•	post_created
+•	user_followed
+•	notification_created
+•	reel_viewed
+Used for:
+•	notifications
+•	analytics
+•	feed fanout
+•	async processing
+________________________________________
+10. Media Pipeline
+Flow:
+Upload
+→ Validation
+→ Storage
+→ Compression
+→ Thumbnail generation
+→ CDN delivery
+Learn:
+•	async processing
+•	large file handling
+•	streaming
+•	retries
+________________________________________
+11. Feed System
+Most important backend section.
+Learn:
+•	fanout-on-write
+•	fanout-on-read
+•	ranking basics
+•	caching feeds
+•	celebrity problem
+________________________________________
+12. Realtime System
+Use WebSockets for:
+•	chat
+•	online status
+•	live notifications
+Learn:
+•	persistent connections
+•	scaling websocket servers
+•	pub/sub systems
+________________________________________
+13. Reliability Engineering
+Every system should include:
+•	retries
+•	timeouts
+•	logging
+•	graceful failures
+•	rate limiting
+________________________________________
+14. Observability
+Track:
+•	request latency
+•	DB latency
+•	cache hit rate
+•	API errors
+•	queue lag
+Use:
+•	Prometheus
+•	Grafana
+________________________________________
+15. Security
+Implement:
+•	JWT auth
+•	password hashing
+•	rate limiting
+•	secure uploads
+•	input validation
+Later:
+•	RBAC
+•	secret management
+•	abuse prevention
+________________________________________
+16. Deployment Plan
+Initially:
+•	local Docker Compose
+Later:
+•	cloud deployment
+•	CI/CD
+•	Kubernetes
+•	autoscaling
+________________________________________
+17. Performance Goals
+Target:
+•	fast APIs
+•	low DB queries
+•	efficient caching
+•	low p95 latency
+Learn:
+•	profiling
+•	query optimization
+•	load testing
+________________________________________
+18. Final Goal
+End state should resemble a simplified combination of:
+Platform	Learning
+Instagram	social systems
+TikTok	recommendation/feed
+Netflix	media delivery
+Discord	realtime systems
+Uber	distributed systems
+Stripe	reliability engineering
+________________________________________
+19. Most Important Rule
+Do not rush to “advanced”.
+Progression should be:
+Simple
+→ Stable
+→ Scalable
+→ Distributed
+→ Optimized
+That progression is where real engineering growth happens.
+
