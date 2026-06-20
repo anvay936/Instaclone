@@ -19,9 +19,13 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    public Post(){}
+
     public Post(Integer id, String content){
         this.id = id;
         this.content = content;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Integer getId() {
@@ -39,4 +43,12 @@ public class Post {
     public String getContent() {
         return content;
     }
+
+    public LocalDateTime getCreatedAt(){return createdAt;}
+
+    public void setCreatedAT(){this.createdAt = LocalDateTime.now();}
+
+    public LocalDateTime getUpdatedAt(){return updatedAt;}
+
+    public void setUpdatedAt(){this.updatedAt = LocalDateTime.now();}
 }

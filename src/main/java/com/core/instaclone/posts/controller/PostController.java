@@ -1,28 +1,28 @@
 package com.core.instaclone.posts.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.core.instaclone.posts.entity.Post;
 
-import java.util.ArrayList;
 import java.util.List;
+import com.core.instaclone.posts.service.PostService;
 
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-    private static Integer id1 = 0;
-    private static List<Post> store = new ArrayList<>();
+    private final PostService postService;
+
+    public PostController(PostService postService){
+        this.postService = postService;
+    }
+
     @PostMapping
-    public void createPost(String content){
-        id1++;
-        store.add(new Post(id1,content));
+    public Post createPost(@RequestBody Post post){
+        return postService.createPost(post);
     }
 
     @GetMapping
     public List<Post> getAllPosts(){
-        return store;
+        return postService.getAllPosts();
     }
 
 }

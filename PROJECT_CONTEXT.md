@@ -644,7 +644,8 @@ The project is currently working on:
 
 * PHASE 1
 * EPIC 1 — Core Backend Foundation
-* STORY 1 — Setup Clean Architecture
+* STORY 2 — Create Post Entity & Basic APIs is implemented
+* Next planned story: STORY 3 — Add DTO Layer
 
 The current Spring Boot root package is:
 
@@ -662,7 +663,7 @@ The context-load test is:
 
 ## Story 1 Architecture Target
 
-Story 1 is about clean architecture scaffolding only. Do not jump into real Post CRUD APIs yet; that belongs to Story 2.
+Story 1 was about clean architecture scaffolding only. The project has since moved into Story 2 and added the first real Post APIs.
 
 Target package layout:
 
@@ -703,10 +704,48 @@ The module/layer names above should be Java packages/directories. Avoid lowercas
 
 Important Git note: empty package directories are not tracked by Git. If the architecture scaffold must be visible in version control before real classes exist, add small package marker classes or wait until Story 2 creates real classes.
 
+## Story 2 Implementation State
+
+Story 2 target:
+
+* Create `Post` entity with `id`, `content`, `createdAt`, and `updatedAt`.
+* Create `PostController`.
+* Add `POST /posts` and `GET /posts`.
+* Create `PostService` with `createPost()` and `getAllPosts()`.
+* Use an in-memory list temporarily.
+* Return JSON responses, not plain strings.
+* Ensure timestamps are visible in JSON.
+
+Current Story 2 files:
+
+* `src/main/java/com/core/instaclone/posts/entity/Post.java`
+* `src/main/java/com/core/instaclone/posts/controller/PostController.java`
+* `src/main/java/com/core/instaclone/posts/service/PostService.java`
+
+Current behavior:
+
+* `POST /posts` accepts a JSON body such as `{ "content": "hello" }`.
+* `POST /posts` returns the created `Post` object as JSON.
+* `GET /posts` returns the in-memory list as JSON.
+* `PostController` delegates to `PostService`.
+* `PostService` owns the temporary in-memory store and id counter.
+* `Post` has a no-args constructor for Jackson request-body deserialization.
+* `Post` exposes getters for `id`, `content`, `createdAt`, and `updatedAt`, so those fields can appear in JSON.
+
+Story 3 should introduce DTOs. Do not require DTOs when evaluating Story 2.
+
+## Git Notes
+
+The `.gitignore` currently ignores `target/`, `.idea/`, editor metadata, and common build outputs. Consider tracking `.mvn/wrapper/maven-wrapper.jar` if the Maven wrapper should work on fresh clones without relying on a locally installed Maven.
+
+The `.gitattributes` file controls Git handling rules such as line endings and binary/text behavior. It is not an ignore file.
+
 ## Current Verification
 
 As of this context update:
 
-* `./mvnw test` passes.
+* Windows PowerShell `.\mvnw.cmd test` may fail with the current wrapper script.
+* WSL verification works with: `wsl.exe -d Ubuntu --cd /home/sawai/projects/InstaClone/instaclone -- ./mvnw test`
+* The latest WSL `./mvnw test` run passes.
 * The test suite contains one Spring context-load test.
-* No real feature APIs are implemented yet.
+* Story 2 is considered complete at the code/acceptance-criteria level, though there are not yet endpoint-level tests.
