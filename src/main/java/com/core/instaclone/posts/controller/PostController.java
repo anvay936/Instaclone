@@ -1,7 +1,8 @@
 package com.core.instaclone.posts.controller;
 
+import com.core.instaclone.posts.dto.PostRequest;
+import com.core.instaclone.posts.dto.PostResponse;
 import org.springframework.web.bind.annotation.*;
-import com.core.instaclone.posts.entity.Post;
 
 import java.util.List;
 import com.core.instaclone.posts.service.PostService;
@@ -16,12 +17,12 @@ public class PostController {
     }
 
     @PostMapping
-    public Post createPost(@RequestBody Post post){
-        return postService.createPost(post);
+    public PostResponse createPost(@RequestBody PostRequest postRequest){
+        return postService.createPost(postRequest);
     }
 
     @GetMapping
-    public List<Post> getAllPosts(){
+    public List<PostResponse> getAllPosts(){
         return postService.getAllPosts();
     }
 

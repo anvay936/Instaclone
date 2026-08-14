@@ -618,34 +618,14 @@ in terms of engineering concepts and backend architecture depth.
 
 # Current AI Context
 
-## Repository Location
-
-The active project repository is:
-
-`/home/sawai/projects/InstaClone/instaclone`
-
-The outer `/home/sawai/projects/InstaClone` directory contains the nested `instaclone` repository.
-
-For shell commands, use this as the working directory:
-
-```bash
-cd /home/sawai/projects/InstaClone/instaclone
-```
-
-When running from Windows/PowerShell through WSL, use:
-
-```powershell
-wsl.exe -d Ubuntu --cd /home/sawai/projects/InstaClone/instaclone -- <command>
-```
-
 ## Current Implementation State
 
 The project is currently working on:
 
 * PHASE 1
 * EPIC 1 — Core Backend Foundation
-* STORY 2 — Create Post Entity & Basic APIs is implemented
-* Next planned story: STORY 3 — Add DTO Layer
+* STORY 3 — Add DTO Layer is complete
+* Next planned story: STORY 4 — Input Validation
 
 The current Spring Boot root package is:
 
@@ -661,78 +641,33 @@ The context-load test is:
 
 `src/test/java/com/core/instaclone/InstacloneApplicationTests.java`
 
-## Story 1 Architecture Target
-
-Story 1 was about clean architecture scaffolding only. The project has since moved into Story 2 and added the first real Post APIs.
-
-Target package layout:
-
-```text
-com.core.instaclone
-  auth
-    controller
-    service
-    repository
-    dto
-    entity
-  users
-    controller
-    service
-    repository
-    dto
-    entity
-  posts
-    controller
-    service
-    repository
-    dto
-    entity
-  feed
-    controller
-    service
-    repository
-    dto
-    entity
-  common
-    exception
-    config
-    util
-    constants
-```
-
-The module/layer names above should be Java packages/directories. Avoid lowercase Java class placeholders such as `controller.java`, `service.java`, or `dto.java`.
-
-Important Git note: empty package directories are not tracked by Git. If the architecture scaffold must be visible in version control before real classes exist, add small package marker classes or wait until Story 2 creates real classes.
-
-## Story 2 Implementation State
-
-Story 2 target:
-
-* Create `Post` entity with `id`, `content`, `createdAt`, and `updatedAt`.
-* Create `PostController`.
-* Add `POST /posts` and `GET /posts`.
-* Create `PostService` with `createPost()` and `getAllPosts()`.
-* Use an in-memory list temporarily.
-* Return JSON responses, not plain strings.
-* Ensure timestamps are visible in JSON.
-
-Current Story 2 files:
+## Current Post Module State
 
 * `src/main/java/com/core/instaclone/posts/entity/Post.java`
 * `src/main/java/com/core/instaclone/posts/controller/PostController.java`
 * `src/main/java/com/core/instaclone/posts/service/PostService.java`
+* `src/main/java/com/core/instaclone/posts/dto/PostRequest.java`
+* `src/main/java/com/core/instaclone/posts/dto/PostResponse.java`
 
 Current behavior:
 
 * `POST /posts` accepts a JSON body such as `{ "content": "hello" }`.
-* `POST /posts` returns the created `Post` object as JSON.
-* `GET /posts` returns the in-memory list as JSON.
+* `POST /posts` returns the created `PostResponse` as JSON, including its server-assigned id and timestamps.
+* `GET /posts` returns a list of `PostResponse` objects.
 * `PostController` delegates to `PostService`.
 * `PostService` owns the temporary in-memory store and id counter.
-* `Post` has a no-args constructor for Jackson request-body deserialization.
-* `Post` exposes getters for `id`, `content`, `createdAt`, and `updatedAt`, so those fields can appear in JSON.
+* The controller deals exclusively in DTOs: `PostRequest` for input and `PostResponse` for output.
+* The service manually maps `PostRequest` to internal `Post`, and `Post` to `PostResponse`, through private mapping methods.
+* The internal `Post` entity is not exposed through the API.
+* The in-memory store is temporary; Story 6 will move storage concerns to a repository.
 
-Story 3 should introduce DTOs. Do not require DTOs when evaluating Story 2.
+## Next Story: Input Validation
+
+Story 4 should validate API input at the request boundary:
+
+* Place rules such as `not null`, `not blank`, and a maximum content length on `PostRequest`.
+* Trigger validation in the controller.
+* Do not put HTTP request-validation concerns on `PostResponse`.
 
 ## Git Notes
 
@@ -745,7 +680,7 @@ The `.gitattributes` file controls Git handling rules such as line endings and b
 As of this context update:
 
 * Windows PowerShell `.\mvnw.cmd test` may fail with the current wrapper script.
-* WSL verification works with: `wsl.exe -d Ubuntu --cd /home/sawai/projects/InstaClone/instaclone -- ./mvnw test`
+* From the repository root, the Maven verification command is `./mvnw test`.
 * The latest WSL `./mvnw test` run passes.
 * The test suite contains one Spring context-load test.
-* Story 2 is considered complete at the code/acceptance-criteria level, though there are not yet endpoint-level tests.
+* Story 3 is considered complete at the code/acceptance-criteria level, though there are not yet endpoint-level tests.

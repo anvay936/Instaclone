@@ -137,7 +137,7 @@ This epic focuses on:
 •	scalability preparation
 By the end of this epic, the project should feel like a real backend system instead of a tutorial app.
 ________________________________________
-🧾 STORY 1 — Setup Clean Architecture
+🧾 STORY 1 — Setup Clean Architecture - Done
 🎯 Goal
 Create scalable backend structure before feature development.
 ________________________________________
@@ -188,7 +188,7 @@ This structure prepares for:
 •	modular scaling
 •	cleaner ownership boundaries
 ________________________________________
-🧾 STORY 2 — Create Post Entity & Basic APIs
+🧾 STORY 2 — Create Post Entity & Basic APIs - Done
 🎯 Goal
 Build first real backend feature.
 ________________________________________
@@ -232,7 +232,7 @@ Later:
 •	List → PostgreSQL
 without changing API contract.
 ________________________________________
-🧾 STORY 3 — Add DTO Layer
+🧾 STORY 3 — Add DTO Layer - Done
 🎯 Goal
 Separate API contract from internal entity.
 ________________________________________
