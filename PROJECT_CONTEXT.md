@@ -624,8 +624,8 @@ The project is currently working on:
 
 * PHASE 1
 * EPIC 1 — Core Backend Foundation
-* STORY 4 — Input Validation is complete
-* Next planned story: STORY 5 — Global Exception Handling
+* STORY 5 — Global Exception Handling is complete
+* Next planned story: STORY 6 — Add Repository Layer
 
 The current Spring Boot root package is:
 
@@ -663,11 +663,15 @@ Current behavior:
 
 ## Validation Convention
 
-`PostRequest.content` is validated at the API boundary with a non-blank rule and a maximum length of 100 characters. The controller triggers this validation before calling the service. Invalid requests receive Spring's default 400 response for now; Story 5 will make errors consistent.
+`PostRequest.content` is validated at the API boundary with a non-blank rule and a maximum length of 100 characters. The controller triggers this validation before calling the service.
 
-## Next Story: Global Exception Handling
+## Error Response Convention
 
-Story 5 should introduce a centralized error response for validation errors, missing resources, and unexpected exceptions.
+`GlobalExceptionHandler` centralizes REST error handling and returns `ErrorResponse` with `timestamp`, `status`, `error`, and `message`. It handles validation failures as 400, `ResourceNotFoundException` as 404, and unexpected exceptions as 500. No current endpoint throws `ResourceNotFoundException`; later lookup/update/delete work will use it.
+
+## Next Story: Repository Layer
+
+Story 6 should move the temporary in-memory post storage from `PostService` into `PostRepository`, so storage concerns are separated from business logic.
 
 ## Git Notes
 
@@ -683,4 +687,4 @@ As of this context update:
 * From the repository root, the Maven verification command is `./mvnw test`.
 * The latest WSL `./mvnw test` run passes.
 * The test suite contains one Spring context-load test.
-* Story 4 is considered complete at the code/acceptance-criteria level, though there are not yet endpoint-level tests.
+* Story 4 is complete and its invalid-request behavior has been endpoint-verified. Story 5 is complete at the code/acceptance-criteria level. There are not yet automated endpoint-level tests.

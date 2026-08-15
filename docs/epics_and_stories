@@ -293,7 +293,7 @@ Validation protects:
 •	downstream systems
 •	async pipelines later
 ________________________________________
-🧾 STORY 5 — Global Exception Handling
+🧾 STORY 5 — Global Exception Handling - Done
 🎯 Goal
 Return clean structured errors.
 ________________________________________
