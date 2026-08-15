@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public class Post {
     private Integer id;
 
-    @NotBlank
     private String content;
 
     @CreationTimestamp

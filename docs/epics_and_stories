@@ -261,7 +261,7 @@ ________________________________________
 DTOs prevent future breaking API changes.
 Critical for large systems.
 ________________________________________
-🧾 STORY 4 — Input Validation
+🧾 STORY 4 — Input Validation - Done
 🎯 Goal
 Reject invalid client requests.
 ________________________________________

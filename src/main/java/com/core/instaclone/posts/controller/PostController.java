@@ -2,6 +2,7 @@ package com.core.instaclone.posts.controller;
 
 import com.core.instaclone.posts.dto.PostRequest;
 import com.core.instaclone.posts.dto.PostResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class PostController {
     }
 
     @PostMapping
-    public PostResponse createPost(@RequestBody PostRequest postRequest){
+    public PostResponse createPost(@Valid @RequestBody PostRequest postRequest){
         return postService.createPost(postRequest);
     }
 

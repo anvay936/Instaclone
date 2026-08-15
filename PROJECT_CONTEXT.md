@@ -624,8 +624,8 @@ The project is currently working on:
 
 * PHASE 1
 * EPIC 1 — Core Backend Foundation
-* STORY 3 — Add DTO Layer is complete
-* Next planned story: STORY 4 — Input Validation
+* STORY 4 — Input Validation is complete
+* Next planned story: STORY 5 — Global Exception Handling
 
 The current Spring Boot root package is:
 
@@ -661,13 +661,13 @@ Current behavior:
 * The internal `Post` entity is not exposed through the API.
 * The in-memory store is temporary; Story 6 will move storage concerns to a repository.
 
-## Next Story: Input Validation
+## Validation Convention
 
-Story 4 should validate API input at the request boundary:
+`PostRequest.content` is validated at the API boundary with a non-blank rule and a maximum length of 100 characters. The controller triggers this validation before calling the service. Invalid requests receive Spring's default 400 response for now; Story 5 will make errors consistent.
 
-* Place rules such as `not null`, `not blank`, and a maximum content length on `PostRequest`.
-* Trigger validation in the controller.
-* Do not put HTTP request-validation concerns on `PostResponse`.
+## Next Story: Global Exception Handling
+
+Story 5 should introduce a centralized error response for validation errors, missing resources, and unexpected exceptions.
 
 ## Git Notes
 
@@ -683,4 +683,4 @@ As of this context update:
 * From the repository root, the Maven verification command is `./mvnw test`.
 * The latest WSL `./mvnw test` run passes.
 * The test suite contains one Spring context-load test.
-* Story 3 is considered complete at the code/acceptance-criteria level, though there are not yet endpoint-level tests.
+* Story 4 is considered complete at the code/acceptance-criteria level, though there are not yet endpoint-level tests.
