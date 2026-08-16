@@ -624,8 +624,8 @@ The project is currently working on:
 
 * PHASE 1
 * EPIC 1 — Core Backend Foundation
-* STORY 5 — Global Exception Handling is complete
-* Next planned story: STORY 6 — Add Repository Layer
+* STORY 6 — Add Repository Layer is complete
+* Next planned story: STORY 7 — Update & Delete APIs
 
 The current Spring Boot root package is:
 
@@ -655,11 +655,12 @@ Current behavior:
 * `POST /posts` returns the created `PostResponse` as JSON, including its server-assigned id and timestamps.
 * `GET /posts` returns a list of `PostResponse` objects.
 * `PostController` delegates to `PostService`.
-* `PostService` owns the temporary in-memory store and id counter.
+* `PostRepository` owns the temporary in-memory store and assigns sequential post IDs.
+* `PostService` receives `PostRepository` through constructor injection and contains no storage collection.
 * The controller deals exclusively in DTOs: `PostRequest` for input and `PostResponse` for output.
 * The service manually maps `PostRequest` to internal `Post`, and `Post` to `PostResponse`, through private mapping methods.
 * The internal `Post` entity is not exposed through the API.
-* The in-memory store is temporary; Story 6 will move storage concerns to a repository.
+* `PostRepository` currently provides `save`, `findAll`, `findById`, and `delete`; its in-memory implementation is temporary and can later be replaced by database persistence without changing the service contract.
 
 ## Validation Convention
 
@@ -669,9 +670,9 @@ Current behavior:
 
 `GlobalExceptionHandler` centralizes REST error handling and returns `ErrorResponse` with `timestamp`, `status`, `error`, and `message`. It handles validation failures as 400, `ResourceNotFoundException` as 404, and unexpected exceptions as 500. No current endpoint throws `ResourceNotFoundException`; later lookup/update/delete work will use it.
 
-## Next Story: Repository Layer
+## Next Story: Update and Delete APIs
 
-Story 6 should move the temporary in-memory post storage from `PostService` into `PostRepository`, so storage concerns are separated from business logic.
+Story 7 should add `PUT /posts/{id}` and `DELETE /posts/{id}`, using `ResourceNotFoundException` to return 404 for unknown IDs.
 
 ## Git Notes
 
@@ -687,4 +688,4 @@ As of this context update:
 * From the repository root, the Maven verification command is `./mvnw test`.
 * The latest WSL `./mvnw test` run passes.
 * The test suite contains one Spring context-load test.
-* Story 4 is complete and its invalid-request behavior has been endpoint-verified. Story 5 is complete at the code/acceptance-criteria level. There are not yet automated endpoint-level tests.
+* Stories 4–6 are complete at the code/acceptance-criteria level; Story 4's invalid-request behavior has been endpoint-verified. There are not yet automated endpoint-level tests.

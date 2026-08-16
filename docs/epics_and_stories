@@ -332,7 +332,7 @@ Centralized error handling becomes critical once:
 •	external clients
 are introduced.
 ________________________________________
-🧾 STORY 6 — Add Repository Layer
+🧾 STORY 6 — Add Repository Layer - Done
 🎯 Goal
 Separate storage logic from business logic.
 ________________________________________
