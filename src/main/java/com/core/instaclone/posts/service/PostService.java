@@ -1,5 +1,6 @@
 package com.core.instaclone.posts.service;
 
+import com.core.instaclone.exception.ResourceNotFoundException;
 import com.core.instaclone.posts.dto.PostResponse;
 import com.core.instaclone.posts.dto.PostRequest;
 import com.core.instaclone.posts.entity.Post;
@@ -36,6 +37,26 @@ public class PostService {
 //                .stream()
 //                .map(this::toPostResponse)
 //                .toList();
+    }
+
+    public PostResponse updatePost(Integer id, PostRequest updateRequest){
+        Post editPost = repository.findById(id);
+        if(editPost == null){
+            throw new ResourceNotFoundException("Post not found with id " + id);
+        }
+        editPost.setContent(updateRequest.getContent());
+        editPost.setUpdatedAt();
+        return toPostResponse(editPost);
+    }
+
+    public void deletePost(Integer id){
+        if(repository.findById(id) == null){
+            throw new ResourceNotFoundException("Post not found with id " + id);
+
+        }
+        else{
+            repository.delete(id);
+        }
     }
 
     private Post toPost(PostRequest postRequest){

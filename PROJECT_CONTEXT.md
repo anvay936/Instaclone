@@ -624,8 +624,8 @@ The project is currently working on:
 
 * PHASE 1
 * EPIC 1 — Core Backend Foundation
-* STORY 6 — Add Repository Layer is complete
-* Next planned story: STORY 7 — Update & Delete APIs
+* STORY 7 — Update & Delete APIs is complete
+* Next planned story: STORY 8 — Add Search & Pagination
 
 The current Spring Boot root package is:
 
@@ -654,6 +654,9 @@ Current behavior:
 * `POST /posts` accepts a JSON body such as `{ "content": "hello" }`.
 * `POST /posts` returns the created `PostResponse` as JSON, including its server-assigned id and timestamps.
 * `GET /posts` returns a list of `PostResponse` objects.
+* `PUT /posts/{id}` updates post content and returns the updated `PostResponse`.
+* `DELETE /posts/{id}` deletes the post and returns HTTP 204 No Content.
+* Updating or deleting an unknown ID throws `ResourceNotFoundException`, which returns the standard 404 error response.
 * `PostController` delegates to `PostService`.
 * `PostRepository` owns the temporary in-memory store and assigns sequential post IDs.
 * `PostService` receives `PostRepository` through constructor injection and contains no storage collection.
@@ -670,9 +673,9 @@ Current behavior:
 
 `GlobalExceptionHandler` centralizes REST error handling and returns `ErrorResponse` with `timestamp`, `status`, `error`, and `message`. It handles validation failures as 400, `ResourceNotFoundException` as 404, and unexpected exceptions as 500. No current endpoint throws `ResourceNotFoundException`; later lookup/update/delete work will use it.
 
-## Next Story: Update and Delete APIs
+## Next Story: Search and Pagination
 
-Story 7 should add `PUT /posts/{id}` and `DELETE /posts/{id}`, using `ResourceNotFoundException` to return 404 for unknown IDs.
+Story 8 should add keyword filtering plus offset/limit pagination to `GET /posts`.
 
 ## Git Notes
 
@@ -688,4 +691,4 @@ As of this context update:
 * From the repository root, the Maven verification command is `./mvnw test`.
 * The latest WSL `./mvnw test` run passes.
 * The test suite contains one Spring context-load test.
-* Stories 4–6 are complete at the code/acceptance-criteria level; Story 4's invalid-request behavior has been endpoint-verified. There are not yet automated endpoint-level tests.
+* Stories 4–7 are complete at the code/acceptance-criteria level; Story 4's invalid-request behavior has been endpoint-verified. There are not yet automated endpoint-level tests.

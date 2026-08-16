@@ -370,7 +370,7 @@ This allows migration:
 •	DB → distributed DB
 without rewriting business logic.
 ________________________________________
-🧾 STORY 7 — Update & Delete APIs
+🧾 STORY 7 — Update & Delete APIs - Done
 🎯 Goal
 Support full CRUD operations.
 ________________________________________
